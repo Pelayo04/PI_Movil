@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <EditText
         android:id="@+id/et_nombreDuenio"
         android:layout_width="match_parent"
