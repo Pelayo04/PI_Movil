@@ -1,19 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/et_nombreDuenio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPersonName"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="NombreDuenio"/>
+
+    <EditText
+        android:id="@+id/et_apPat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPersonName"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="ApellidoP"/>
+
+    <EditText
+        android:id="@+id/et_apMat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="pellidoM"/>
+
+    <EditText
+        android:id="@+id/et_telefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="phone"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="Tel"/>
+
+    <EditText
+        android:id="@+id/et_nombreMascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="text"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="NombreAnimal"/>
+
+    <EditText
+        android:id="@+id/et_Raza"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="text"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="Raza"/>
+
+    <EditText
+        android:id="@+id/et_horaCita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="datetime"
+        android:clickable="true"
+        android:focusable="false"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="HoraCita"/>
+
+    <EditText
+        android:id="@+id/et_fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="date"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="fecha"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:text="guardar" />
+
+        <Button
+            android:id="@+id/button_limpiar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:text="limpiar" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
