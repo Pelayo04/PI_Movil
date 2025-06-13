@@ -17,7 +17,7 @@
         android:inputType="textPersonName"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="NombreDuenio"/>
+        android:hint="nombresito eh sí"/>
 
     <EditText
         android:id="@+id/et_apPat"
