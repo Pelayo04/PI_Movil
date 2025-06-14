@@ -39,10 +39,11 @@ public class contactos extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.opc1)
-            // Si ya está en la pantalla principal, muestra mensaje
-            Toast.makeText(this, "Ya estás en Principal", Toast.LENGTH_SHORT).show();
-
+        if (item.getItemId() == R.id.opc1) {
+            // Si selecciona la opción "Ver", abre la actividad correspondiente
+            Intent principal = new Intent(this, MainActivity.class);
+            startActivity(principal);
+        }
         if (item.getItemId() == R.id.opc2) {
             // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent ver = new Intent(this, ver.class);
@@ -72,9 +73,8 @@ public class contactos extends AppCompatActivity {
             startActivity(creadores);
         }
         if (item.getItemId() == R.id.opc7) {
-            // Si selecciona la opción "Ver", abre la actividad correspondiente
-            Intent contactos = new Intent(this, contactos.class);
-            startActivity(contactos);
+            // Si ya está en la pantalla principal, muestra mensaje
+            Toast.makeText(this, "Ya estás en Contactos", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

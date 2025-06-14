@@ -5,7 +5,7 @@ public class datos {
     private String nombreAlumno, apPat, apMat, telefono, herramienta, fecha, horaSalida, horaEntrega, nombreMaestro;
 
     public int d, m ,a;
-    public int h, min;
+    public int h, min, h2, min2;
 
     public String getNombreAlumno() {
         return nombreAlumno;
