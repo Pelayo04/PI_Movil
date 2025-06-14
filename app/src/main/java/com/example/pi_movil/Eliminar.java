@@ -21,6 +21,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+
+import Global.info;
+import POJO.datos;
 import adaptadorEliminar.adaptadorEliminar;
 
 
@@ -34,7 +42,6 @@ public class Eliminar extends AppCompatActivity {
 
     Context context;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +64,15 @@ public class Eliminar extends AppCompatActivity {
 
         rv_eliminar.setAdapter(eliminar); //Conectar el adaptador con la lista
 
-        but_eliminar = (Button)findViewById(R.id.toolbar);
+        but_eliminar = (Button)findViewById(R.id.button_eliminar);
         but_eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 eliminar();
             }
         });
+
+        cargarDatos();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -119,7 +128,85 @@ public class Eliminar extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void eliminar(){
+    private void eliminar() {
+        if (info.listaEliminar.isEmpty()) {
+            Toast.makeText(this, "No hay elementos seleccionados", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.100.7/bd/eliminar.php";
+
+        // Creamos un JSONArray con solo los IDs a eliminar
+        org.json.JSONArray jsonArray = new org.json.JSONArray();
+        try {
+            for (datos d : info.listaEliminar) {
+                org.json.JSONObject obj = new org.json.JSONObject();
+                obj.put("id", d.getId());
+                jsonArray.put(obj);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al crear JSON", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        com.android.volley.toolbox.JsonArrayRequest request = new com.android.volley.toolbox.JsonArrayRequest(
+                Request.Method.POST, url, jsonArray,
+                response -> {
+                    Toast.makeText(this, "Registros eliminados", Toast.LENGTH_SHORT).show();
+                    info.listaEliminar.clear();    // Limpia los seleccionados
+                    cargarDatos();                 // Refresca la lista desde la base de datos
+                },
+                error -> Toast.makeText(this, "Error al conectar con servidor", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
     }
+
+
+    private void cargarDatos() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.100.7/bd/ver.php"; // Ajusta si tu IP cambia
+
+        com.android.volley.toolbox.JsonArrayRequest request = new com.android.volley.toolbox.JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response -> {
+                    info.lista.clear();
+                    info.listaEliminar.clear();
+
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            org.json.JSONObject objeto = response.getJSONObject(i);
+                            datos d = new datos();
+
+                            d.setId(objeto.getInt("id"));
+                            d.setNombreAlumno(objeto.getString("nombreAlumno"));
+                            d.setApPat(objeto.getString("apePat"));
+                            d.setApMat(objeto.getString("apeMat"));
+                            d.setTelefono(String.valueOf(objeto.getLong("telefono")));
+                            d.setHerramienta(objeto.getString("herramienta"));
+                            d.setFecha(objeto.getString("fecha"));
+                            d.setHoraSalida(objeto.getString("horaSalida"));
+                            d.setHoraEntrega(objeto.getString("horaEntrega"));
+                            d.setNombreMaestro(objeto.getString("nombreMaestro"));
+
+                            info.lista.add(d);
+                        }
+
+                        // Actualiza el RecyclerView
+                        rv_eliminar.getAdapter().notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Error al procesar datos", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "Error de conexión con el servidor", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
+    }
+
+
 }
