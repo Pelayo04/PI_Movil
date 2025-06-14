@@ -240,28 +240,32 @@ public class Modificar extends AppCompatActivity {
 
         // Enviar a la base de datos
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.1.72/bd/modificar.php";
+        String url = "http://192.168.100.7/bd/modificar.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> Toast.makeText(this, response, Toast.LENGTH_SHORT).show(),
-                error -> Toast.makeText(this, "Error al actualizar: " + error.getMessage(), Toast.LENGTH_SHORT).show()
+                error -> Toast.makeText(this, "Error de conexión con servidor", Toast.LENGTH_SHORT).show()
         ) {
+            @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", String.valueOf(actual.getId()));
-                params.put("nombreAlumno", actual.getNombreAlumno());
-                params.put("apePat", actual.getApPat());
-                params.put("apeMat", actual.getApMat());
-                params.put("telefono", actual.getTelefono());
-                params.put("herramienta", actual.getHerramienta());
-                params.put("fecha", actual.getFecha());
-                params.put("horaSalida", actual.getHoraSalida());
-                params.put("horaEntrega", actual.getHoraEntrega());
-                params.put("nombreMaestro", actual.getNombreMaestro());
-                return params;
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("id", String.valueOf(actual.getId())); // ← clave primaria
+                parametros.put("nombreAlumno", actual.getNombreAlumno());
+                parametros.put("apePat", actual.getApPat());
+                parametros.put("apeMat", actual.getApMat());
+                parametros.put("telefono", actual.getTelefono());
+                parametros.put("herramienta", actual.getHerramienta());
+                parametros.put("fecha", actual.getFecha());
+                parametros.put("horaSalida", actual.getHoraSalida());
+                parametros.put("horaEntrega", actual.getHoraEntrega());
+                parametros.put("nombreMaestro", actual.getNombreMaestro());
+                return parametros;
             }
         };
+
         queue.add(request);
+
+
     }
 
 

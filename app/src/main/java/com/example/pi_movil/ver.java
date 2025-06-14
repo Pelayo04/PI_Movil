@@ -18,6 +18,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Objects;
+
+import Global.info;
+import POJO.datos;
 import adaptadorVer.adaptadorVer;
 
 public class ver extends AppCompatActivity {
@@ -58,6 +70,8 @@ public class ver extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cargarDatos();
+
         // Ajusta el padding del layout para evitar que se sobreponga con la barra de estado o navegación
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -65,6 +79,43 @@ public class ver extends AppCompatActivity {
             return insets;
         });
     }
+
+    private void cargarDatos(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.100.7/bd/ver.php"; // Ajusta si cambia tu IP
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    info.lista.clear();
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject objeto = response.getJSONObject(i);
+                            datos d = new datos();
+                            d.setId(objeto.getInt("id"));
+                            d.setNombreAlumno(objeto.getString("nombreAlumno"));
+                            d.setApPat(objeto.getString("apePat"));
+                            d.setApMat(objeto.getString("apeMat"));
+                            d.setTelefono(String.valueOf(objeto.getLong("telefono")));
+                            d.setHerramienta(objeto.getString("herramienta"));
+                            d.setFecha(objeto.getString("fecha"));
+                            d.setHoraSalida(objeto.getString("horaSalida"));
+                            d.setHoraEntrega(objeto.getString("horaEntrega"));
+                            d.setNombreMaestro(objeto.getString("nombreMaestro"));
+                            info.lista.add(d);
+                        }
+                        Objects.requireNonNull(rv_ver.getAdapter()).notifyDataSetChanged();
+                        Toast.makeText(this, "Datos cargados correctamente", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        Toast.makeText(this, "Error al procesar datos", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(this, "Error de conexión con el servidor", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);

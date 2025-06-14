@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue solicitud = Volley.newRequestQueue(this);
 
-        StringRequest sql =new StringRequest(Request.Method.POST, "http://192.168.1.72/bd/agregar.php", new Response.Listener<String>() {
+        StringRequest sql =new StringRequest(Request.Method.POST, "http://192.168.100.7/bd/agregar.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();

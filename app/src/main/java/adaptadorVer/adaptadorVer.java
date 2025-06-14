@@ -51,7 +51,7 @@ public class adaptadorVer extends RecyclerView.Adapter<adaptadorVer.MiniActivity
             public void onClick(View view) {
                 // Llama a la actividad y pasa la posición del elemento
                 Intent llamar = new Intent(context, cardView.class);
-                llamar.putExtra("nombreDuenio", pos);
+                llamar.putExtra("nombreAlumno", pos);
                 context.startActivity(llamar);
             }
         };
