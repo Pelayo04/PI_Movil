@@ -73,6 +73,7 @@ public class Inicio extends AppCompatActivity {
                 usuario.getText().toString() +
                 "&pass=" +
                 contrasenia.getText().toString();
+        Log.d("URL", url);
         // Se crea una petición JSON (con Volley) al servidor con la URL construida
         JsonObjectRequest pet = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
