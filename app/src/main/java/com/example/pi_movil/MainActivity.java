@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Método para guardar los datos
     private void guardarDatos(){
-
+        datos persona = new datos();
         persona.setNombreAlumno(et_nombreAlumno.getText().toString());
         persona.setApPat(et_apPat.getText().toString());
         persona.setApMat(et_apMat.getText().toString());
@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         et_apPat.setText("");
         et_apMat.setText("");
         et_telefono.setText("");
+        et_fechaSalida.setText("");
         et_horaSalida.setText("");
         et_horaEntrega.setText("");
         et_nombreMaestro.setText("");
