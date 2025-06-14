@@ -29,6 +29,7 @@
     <string name="button_sig">Siguiente</string>
     <string name="button_ant">Anterior</string>
     <string name="button_gc">Guardar Cambios</string>
+    <string name="button_eliminar">Eliminar</string>
 
 
 </resources>

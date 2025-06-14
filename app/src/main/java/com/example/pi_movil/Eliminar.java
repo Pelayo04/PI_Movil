@@ -1,10 +1,14 @@
 package com.example.pi_movil;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,21 +18,52 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class contactos extends AppCompatActivity {
+import adaptadorEliminar.adaptadorEliminar;
+
+
+public class Eliminar extends AppCompatActivity {
 
     Toolbar toolbar;
-    SharedPreferences archivo;
+    RecyclerView rv_eliminar; // Lista visual que muestra los elementos a eliminar
+    Button but_eliminar;
+
+    SharedPreferences archivo;  // Preferencias compartidas (para sesión de usuario)
+
+    Context context;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_contactos);
+        setContentView(R.layout.activity_eliminar);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        archivo = this.getSharedPreferences("sesion", MODE_PRIVATE);
+        archivo = this.getSharedPreferences("sesion", MODE_PRIVATE); // Sesión de usuario
+
+        rv_eliminar = (RecyclerView)findViewById(R.id.rv_eliminar); // Lista visual (RecyclerView)
+        adaptadorEliminar eliminar = new adaptadorEliminar();
+        eliminar.context = this;
+
+        // Se define el tipo de layout vertical para la lista
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        rv_eliminar.setLayoutManager(linearLayoutManager); //Asignación del layout
+
+        rv_eliminar.setAdapter(eliminar); //Conectar el adaptador con la lista
+
+        but_eliminar = (Button)findViewById(R.id.toolbar);
+        but_eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eliminar();
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -37,15 +72,14 @@ public class contactos extends AppCompatActivity {
         });
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.opc1) {
-            // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent principal = new Intent(this, MainActivity.class);
             startActivity(principal);
         }
@@ -59,8 +93,7 @@ public class contactos extends AppCompatActivity {
             startActivity(modificar);
         }
         if (item.getItemId() == R.id.opc4) {
-            Intent eliminar = new Intent(this, Eliminar.class);
-            startActivity(eliminar);
+            Toast.makeText(this, "Ya estás en Eliminar", Toast.LENGTH_SHORT).show();
         }
         if (item.getItemId() == R.id.opc5) {
             // Cierre de sesión (borra ID del usuario guardado)
@@ -79,9 +112,14 @@ public class contactos extends AppCompatActivity {
             startActivity(creadores);
         }
         if (item.getItemId() == R.id.opc7) {
-            // Si ya está en la pantalla principal, muestra mensaje
-            Toast.makeText(this, "Ya estás en Contactos", Toast.LENGTH_SHORT).show();
+            // Si selecciona la opción "Ver", abre la actividad correspondiente
+            Intent contactos = new Intent(this, contactos.class);
+            startActivity(contactos);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void eliminar(){
+
     }
 }

@@ -151,20 +151,21 @@ public class Modificar extends AppCompatActivity {
         if (item.getItemId() == R.id.opc3) {
             Toast.makeText(this, "Ya estás en Modificar", Toast.LENGTH_SHORT).show();
         }
-        /*if (item.getItemId() == R.id.opc4) {
+        if (item.getItemId() == R.id.opc4) {
             Intent eliminar = new Intent(this, Eliminar.class);
             startActivity(eliminar);
         }
         if (item.getItemId() == R.id.opc5) {
             // Cierre de sesión (borra ID del usuario guardado)
-            if(archivo.contains("id_usuario")){
+            if (archivo.contains("id_usuario")) {
                 SharedPreferences.Editor editor = archivo.edit();
                 editor.remove("id_usuario");
                 editor.commit();
                 Intent x = new Intent(this, Inicio.class);
                 startActivity(x);
                 finish();
-            }*/
+            }
+        }
         if (item.getItemId() == R.id.opc6) {
             // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent creadores = new Intent(this, creadores.class);
