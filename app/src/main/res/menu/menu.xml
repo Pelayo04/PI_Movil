@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/opc1"
+    android:title="Principal"
+    />
+    <item
+        android:id="@+id/opc2"
+        android:title="Ver"
+        />
+    <item
+        android:id="@+id/opc3"
+        android:title="Modificar"/>
+    <item
+        android:id="@+id/opc4"
+        android:title="Eliminar"
+        android:icon="@drawable/baseline_delete_24"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/opc5"
+        android:title="Cerrar sesión"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        app:showAsAction="always"/>
+</menu>
