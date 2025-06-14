@@ -82,11 +82,11 @@ public class ver extends AppCompatActivity {
             // Si ya está en la pantalla principal, muestra mensaje
             Toast.makeText(this, "Ya estás en Ver", Toast.LENGTH_SHORT).show();
         }
-        /*if (item.getItemId() == R.id.opc3) {
+        if (item.getItemId() == R.id.opc3) {
             Intent modificar = new Intent(this, Modificar.class);
             startActivity(modificar);
         }
-        if (item.getItemId() == R.id.opc4) {
+        /*if (item.getItemId() == R.id.opc4) {
             Intent eliminar = new Intent(this, Eliminar.class);
             startActivity(eliminar);
         }

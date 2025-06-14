@@ -69,7 +69,7 @@ public class Inicio extends AppCompatActivity {
     //Login
     public void inicioSesion() {
         // URL con parámetros GET para verificar usuario en el servidor
-        String url = "http://192.168.1.70/bd/ingreso.php?usr=" +
+        String url = "http://192.168.1.72/bd/ingreso.php?usr=" +
                 usuario.getText().toString() +
                 "&pass=" +
                 contrasenia.getText().toString();

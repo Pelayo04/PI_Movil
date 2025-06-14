@@ -7,6 +7,12 @@ public class datos {
     public int d, m ,a;
     public int h, min, h2, min2;
 
+    private int id;
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+
     public String getNombreAlumno() {
         return nombreAlumno;
     }
