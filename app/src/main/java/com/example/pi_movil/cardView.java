@@ -1,5 +1,6 @@
 package com.example.pi_movil;
 
+// Importaciones necesarias para funcionalidades de Android
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,7 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import Global.info;
+import Global.info; // Importa la clase que contiene la lista global de datos
 
 public class cardView extends AppCompatActivity {
 
@@ -29,11 +30,11 @@ public class cardView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Permite que la actividad use toda la pantalla, incluso debajo de la barra de estado
+        // Habilita la visualización sin bordes para una mejor experiencia en pantalla completa
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_card_view); // Asocia esta clase con el layout activity_card_view.xml
+        setContentView(R.layout.activity_card_view); // Asocia la actividad con el layout XML correspondiente
 
-        // Enlaza cada TextView con su correspondiente ID en el XML
+        // Enlaza cada TextView con su ID en el XML
         nombreAlumno2 = (TextView)findViewById(R.id.nombreAlumno2);
         apPat2 = (TextView)findViewById(R.id.apPat2);
         apMat2 = (TextView)findViewById(R.id.apMat2);
@@ -44,34 +45,32 @@ public class cardView extends AppCompatActivity {
         horaEntrega2 = (TextView)findViewById(R.id.et_horaEntrega2);
         nombreMaestro2 = (TextView)findViewById(R.id.et_nombreMaestro2);
 
-        // Asocia el botón con su ID y define su comportamiento al hacer clic
+        // Asigna el botón "llamar" y su comportamiento
         llamar = (Button)findViewById(R.id.button_llamar);
         llamar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // Se crea un Intent con la acción de llamada telefónica
+                // Crea un Intent con la acción de hacer una llamada
                 Intent llamada = new Intent(Intent.ACTION_CALL);
-
-                // Se establece el número de teléfono a marcar, obtenido del TextView
+                // Define el número de teléfono a llamar
                 llamada.setData(Uri.parse("tel:" + telefono2.getText().toString()));
 
-                // Verifica si el permiso para llamar está concedido
+                // Verifica si se tiene permiso para realizar llamadas
                 if(ActivityCompat.checkSelfPermission(cardView.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                    // Si no se tiene permiso, se solicita al usuario
+                    // Si no se tiene, solicita el permiso al usuario
                     ActivityCompat.requestPermissions(cardView.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
-                    return; // Detiene la ejecución para esperar la respuesta del usuario
+                    return; // Sale del método para esperar la respuesta del usuario
                 }
 
-                // Si el permiso está concedido, inicia la llamada
+                // Si ya se tiene el permiso, se realiza la llamada
                 startActivity(llamada);
             }
         });
 
-        // Recupera la posición del elemento seleccionado que se pasó desde el adaptador
+        // Recupera la posición enviada desde el adaptador (RecyclerView)
         pos = getIntent().getIntExtra("nombreAlumno", 0);
 
-        // Usa la posición para obtener los datos del dueño desde la lista global y mostrarlos en pantalla
+        // Obtiene los datos correspondientes a esa posición desde la lista global
         nombreAlumno2.setText(info.lista.get(pos).getNombreAlumno());
         apPat2.setText(info.lista.get(pos).getApPat());
         apMat2.setText(info.lista.get(pos).getApMat());
@@ -82,13 +81,11 @@ public class cardView extends AppCompatActivity {
         horaEntrega2.setText(info.lista.get(pos).getHoraEntrega());
         nombreMaestro2.setText(info.lista.get(pos).getNombreMaestro());
 
-
-        // Ajusta los márgenes para evitar que la vista se superponga con las barras del sistema (como la de navegación)
+        // Ajusta los márgenes automáticamente para evitar que los componentes se oculten bajo las barras del sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
-
 }

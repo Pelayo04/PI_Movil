@@ -1,5 +1,6 @@
 package com.example.pi_movil;
 
+// Importaciones necesarias para la funcionalidad general de Android
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -27,60 +28,63 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
-import Global.info;
-import POJO.datos;
-import adaptadorEliminar.adaptadorEliminar;
+import Global.info;                    // Clase global que almacena listas compartidas
+import POJO.datos;                    // POJO que representa cada registro de la base de datos
+import adaptadorEliminar.adaptadorEliminar; // Adaptador personalizado para eliminar elementos
 
 
 public class Eliminar extends AppCompatActivity {
 
-    Toolbar toolbar;
-    RecyclerView rv_eliminar; // Lista visual que muestra los elementos a eliminar
-    Button but_eliminar;
+    Toolbar toolbar;                 // Barra superior de la pantalla
+    RecyclerView rv_eliminar;       // Componente visual para mostrar los registros
+    Button but_eliminar;            // Botón que ejecuta la eliminación
 
-    SharedPreferences archivo;  // Preferencias compartidas (para sesión de usuario)
-
-    Context context;
+    SharedPreferences archivo;      // Objeto para guardar sesión del usuario
+    Context context;                // Contexto actual de la aplicación
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_eliminar);
+        EdgeToEdge.enable(this);    // Habilita modo pantalla completa
+        setContentView(R.layout.activity_eliminar); // Establece el layout
 
+        // Configura el toolbar como barra superior
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Obtiene preferencias guardadas y verifica tipo de usuario
         archivo = getSharedPreferences("sesion", MODE_PRIVATE);
         String tipo = archivo.getString("tipo_usuario", "mortal");
 
+        // Solo permite el acceso si el usuario es admin
         if (!tipo.equals("admin")) {
             Toast.makeText(this, "Acceso restringido", Toast.LENGTH_SHORT).show();
-            finish(); // Cierra la activity si no es admin
+            finish();
             return;
         }
 
-        rv_eliminar = (RecyclerView)findViewById(R.id.rv_eliminar); // Lista visual (RecyclerView)
+        // Inicializa el RecyclerView y su adaptador
+        rv_eliminar = (RecyclerView)findViewById(R.id.rv_eliminar);
         adaptadorEliminar eliminar = new adaptadorEliminar();
         eliminar.context = this;
 
-        // Se define el tipo de layout vertical para la lista
+        // Define el layout vertical para mostrar los elementos
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rv_eliminar.setLayoutManager(linearLayoutManager); // Asigna el layout al RecyclerView
+        rv_eliminar.setAdapter(eliminar);                  // Asigna el adaptador
 
-        rv_eliminar.setLayoutManager(linearLayoutManager); //Asignación del layout
-
-        rv_eliminar.setAdapter(eliminar); //Conectar el adaptador con la lista
-
+        // Botón que ejecuta la función de eliminar
         but_eliminar = (Button)findViewById(R.id.button_eliminar);
         but_eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eliminar();
+                eliminar(); // Llama a la función de eliminación
             }
         });
 
-        cargarDatos();
+        cargarDatos(); // Carga los datos al iniciar la actividad
 
+        // Ajuste para evitar solapamientos con las barras del sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -88,19 +92,20 @@ public class Eliminar extends AppCompatActivity {
         });
     }
 
+    // Infla el menú superior de opciones
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Maneja la navegación entre las distintas Activities
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.opc1) {
             Intent principal = new Intent(this, MainActivity.class);
             startActivity(principal);
         }
         if (item.getItemId() == R.id.opc2) {
-            // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent ver = new Intent(this, ver.class);
             startActivity(ver);
         }
@@ -112,7 +117,7 @@ public class Eliminar extends AppCompatActivity {
             Toast.makeText(this, "Ya estás en Eliminar", Toast.LENGTH_SHORT).show();
         }
         if (item.getItemId() == R.id.opc5) {
-            // Cierre de sesión (borra ID del usuario guardado)
+            // Cierra sesión y regresa al login
             if (archivo.contains("id_usuario")) {
                 SharedPreferences.Editor editor = archivo.edit();
                 editor.remove("id_usuario");
@@ -123,19 +128,19 @@ public class Eliminar extends AppCompatActivity {
             }
         }
         if (item.getItemId() == R.id.opc6) {
-            // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent creadores = new Intent(this, creadores.class);
             startActivity(creadores);
         }
         if (item.getItemId() == R.id.opc7) {
-            // Si selecciona la opción "Ver", abre la actividad correspondiente
             Intent contactos = new Intent(this, contactos.class);
             startActivity(contactos);
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // Método que elimina los registros seleccionados
     private void eliminar() {
+        // Verifica si hay elementos seleccionados
         if (info.listaEliminar.isEmpty()) {
             Toast.makeText(this, "No hay elementos seleccionados", Toast.LENGTH_SHORT).show();
             return;
@@ -144,7 +149,7 @@ public class Eliminar extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://192.168.100.7/bd/eliminar.php";
 
-        // Creamos un JSONArray con solo los IDs a eliminar
+        // Prepara un JSON con los IDs a eliminar
         org.json.JSONArray jsonArray = new org.json.JSONArray();
         try {
             for (datos d : info.listaEliminar) {
@@ -158,31 +163,34 @@ public class Eliminar extends AppCompatActivity {
             return;
         }
 
+        // Envia los datos como un arreglo JSON al servidor
         com.android.volley.toolbox.JsonArrayRequest request = new com.android.volley.toolbox.JsonArrayRequest(
                 Request.Method.POST, url, jsonArray,
                 response -> {
                     Toast.makeText(this, "Registros eliminados", Toast.LENGTH_SHORT).show();
-                    info.listaEliminar.clear();    // Limpia los seleccionados
-                    cargarDatos();                 // Refresca la lista desde la base de datos
+                    info.listaEliminar.clear(); // Limpia la lista de seleccionados
+                    cargarDatos();              // Refresca la vista con nuevos datos
                 },
                 error -> Toast.makeText(this, "Error al conectar con servidor", Toast.LENGTH_SHORT).show()
         );
 
-        queue.add(request);
+        queue.add(request); // Agrega la petición a la cola
     }
 
-
+    // Carga los registros desde la base de datos
     private void cargarDatos() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.100.7/bd/ver.php"; // Ajusta si tu IP cambia
+        String url = "http://192.168.100.7/bd/ver.php";
 
         com.android.volley.toolbox.JsonArrayRequest request = new com.android.volley.toolbox.JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response -> {
+                    // Limpia listas antes de llenar
                     info.lista.clear();
                     info.listaEliminar.clear();
 
                     try {
+                        // Recorre el arreglo JSON y convierte cada objeto en un registro
                         for (int i = 0; i < response.length(); i++) {
                             org.json.JSONObject objeto = response.getJSONObject(i);
                             datos d = new datos();
@@ -198,10 +206,10 @@ public class Eliminar extends AppCompatActivity {
                             d.setHoraEntrega(objeto.getString("horaEntrega"));
                             d.setNombreMaestro(objeto.getString("nombreMaestro"));
 
-                            info.lista.add(d);
+                            info.lista.add(d); // Agrega el objeto a la lista global
                         }
 
-                        // Actualiza el RecyclerView
+                        // Notifica al adaptador que los datos cambiaron
                         rv_eliminar.getAdapter().notifyDataSetChanged();
 
                     } catch (JSONException e) {
@@ -212,8 +220,7 @@ public class Eliminar extends AppCompatActivity {
                 error -> Toast.makeText(this, "Error de conexión con el servidor", Toast.LENGTH_SHORT).show()
         );
 
-        queue.add(request);
+        queue.add(request); // Ejecuta la petición
     }
-
 
 }
