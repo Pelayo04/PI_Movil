@@ -93,6 +93,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        et_fechaSalida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker();
+            }
+        });
+
+        et_horaSalida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                horaSalida();
+            }
+        });
+
+        et_horaEntrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                horaEntrega();
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -216,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         dia = actual.get(Calendar.DAY_OF_MONTH);
         mes = actual.get(Calendar.MONTH);
         anio = actual.get(Calendar.YEAR);
-        // Se muestra el calendario y al seleccionar, se asigna a et_fecha
+        // Se muestra el calendario y al selecciona
         DatePickerDialog datPD = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {

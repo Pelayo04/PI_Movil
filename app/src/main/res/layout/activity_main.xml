@@ -119,9 +119,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
-        android:focusable="false"
-        android:clickable="true"
-        android:inputType="date"
+        android:inputType="textPersonName"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:hint="@string/txt_nombreMaestro"/>
