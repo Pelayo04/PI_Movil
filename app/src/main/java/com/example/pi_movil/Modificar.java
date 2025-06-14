@@ -55,7 +55,14 @@ public class Modificar extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        archivo = this.getSharedPreferences("sesion", MODE_PRIVATE);
+        archivo = getSharedPreferences("sesion", MODE_PRIVATE);
+        String tipo = archivo.getString("tipo_usuario", "mortal");
+
+        if (!tipo.equals("admin")) {
+            Toast.makeText(this, "Acceso restringido", Toast.LENGTH_SHORT).show();
+            finish(); // Cierra la activity si no es admin
+            return;
+        }
 
         nombreAlumno = findViewById(R.id.et_nombreAlumno);
         apPat = findViewById(R.id.et_apPat);

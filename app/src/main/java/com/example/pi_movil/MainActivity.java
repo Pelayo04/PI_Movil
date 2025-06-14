@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        archivo = this.getSharedPreferences("sesion", MODE_PRIVATE);
+        archivo = getSharedPreferences("sesion", MODE_PRIVATE); // ✅ Necesario
+        String tipo = archivo.getString("tipo_usuario", "mortal");
+
+        if (!tipo.equals("admin")) {
+            Toast.makeText(this, "Acceso restringido", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         et_nombreAlumno = (EditText)findViewById(R.id.et_nombreAlumno);
         et_apPat = (EditText)findViewById(R.id.et_apPat);

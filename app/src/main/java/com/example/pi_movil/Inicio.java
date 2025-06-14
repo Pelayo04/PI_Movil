@@ -1,6 +1,5 @@
 package com.example.pi_movil;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +17,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -30,7 +27,6 @@ public class Inicio extends AppCompatActivity {
 
     EditText usuario, contrasenia;
     Button ingresar;
-    // Preferencias compartidas para mantener la sesion del usuario
     SharedPreferences archivo;
 
     @Override
@@ -39,22 +35,22 @@ public class Inicio extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_inicio);
 
-        usuario = (EditText)findViewById(R.id.ed_user);
-        contrasenia = (EditText)findViewById(R.id.ed_password);
-        // Inicializa las SharedPreferences con el nombre "sesion"
+        usuario = findViewById(R.id.ed_user);
+        contrasenia = findViewById(R.id.ed_password);
         archivo = this.getSharedPreferences("sesion", MODE_PRIVATE);
 
-        ingresar = (Button)findViewById(R.id.button_ingresar);
-        ingresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inicioSesion(); // Llama al metodo para iniciar sesion
-            }
-        });
+        ingresar = findViewById(R.id.button_ingresar);
+        ingresar.setOnClickListener(view -> inicioSesion());
 
-        // Si ya hay una sesion activa se redirige directamente a MainActivity
-        if(archivo.contains("usuario")){
-            Intent ini = new Intent(this, MainActivity.class);
+        if (archivo.contains("id_usuario")) {
+            String tipo = archivo.getString("tipo_usuario", "mortal"); // Valor por defecto
+
+            Intent ini;
+            if (tipo.equals("admin")) {
+                ini = new Intent(this, MainActivity.class);
+            } else {
+                ini = new Intent(this, ver.class);
+            }
             startActivity(ini);
             finish();
         }
@@ -66,50 +62,48 @@ public class Inicio extends AppCompatActivity {
         });
     }
 
-    //Login
     public void inicioSesion() {
-        // URL con parámetros GET para verificar usuario en el servidor
         String url = "http://192.168.100.7/bd/ingreso.php?usr=" +
                 usuario.getText().toString() +
                 "&pass=" +
                 contrasenia.getText().toString();
         Log.d("URL", url);
-        // Se crea una petición JSON (con Volley) al servidor con la URL construida
-        JsonObjectRequest pet = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    // Si el ID de usuario recibido es distinto de -1, el login fue exitoso
-                    if (response.getInt("usr") != -1) {
-                        Intent i = new Intent(Inicio.this, MainActivity.class);
-                        // Se guarda el ID de usuario en SharedPreferences para mantener la sesión
-                        SharedPreferences.Editor editor = archivo.edit();
-                        editor.putInt("id_usuario", response.getInt("usr"));
-                        editor.apply();
-                        startActivity(i);
-                        finish();
-                    } else {
-                        // Si es -1 el usuario o la contraseña no coinciden y se limpian los campos
-                        usuario.setText("");
-                        contrasenia.setText("");
-                        Toast.makeText(Inicio.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+
+        JsonObjectRequest pet = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        if (response.getInt("usr") != -1) {
+                            String tipo = response.getString("tipo");
+
+                            SharedPreferences.Editor editor = archivo.edit();
+                            editor.putInt("id_usuario", response.getInt("usr"));
+                            editor.putString("tipo_usuario", tipo); // ← Usa putString aquí
+                            editor.apply();
+
+                            Intent i;
+                            if (tipo.equals("admin")) {
+                                i = new Intent(Inicio.this, MainActivity.class);
+                            } else {
+                                i = new Intent(Inicio.this, ver.class);
+                            }
+
+                            startActivity(i);
+                            finish();
+                        } else {
+                            usuario.setText("");
+                            contrasenia.setText("");
+                            Toast.makeText(Inicio.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(Inicio.this, "Error en respuesta del servidor", Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
-                    // Error en el formato del JSON recibido
-                    Toast.makeText(Inicio.this, "Error en respuesta del servidor", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            // Si la peticion falla
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VolleyError", error.toString());
-                Toast.makeText(Inicio.this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Se lanza la petición agregandola a la cola de Volley
+                },
+                error -> {
+                    Log.e("VolleyError", error.toString());
+                    Toast.makeText(Inicio.this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
         RequestQueue lanzarPeticion = Volley.newRequestQueue(this);
         lanzarPeticion.add(pet);
     }
-
 }
