@@ -10,6 +10,7 @@
     <string name="txt_apMat">Apellido Materno</string>
     <string name="txt_telefono">Telefono</string>
     <string name="txt_herramienta">Herramienta</string>
+    <string name="txt_fecha">Fecha de Salida</string>
     <string name="txt_horaSalida">Hora de Salida</string>
     <string name="txt_horaEntrega">Hora de Entrega</string>
     <string name="txt_nombreMaestro">Nombre del Maestro</string>

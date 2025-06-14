@@ -60,27 +60,47 @@
 
     <Spinner
         android:id="@+id/spinner_herramientas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:minHeight="48dp"
         />
 
     <EditText
-        android:id="@+id/et_horaSalida"
+        android:id="@+id/et_fecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:inputType="text"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_fecha"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/et_horaSalida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="datetime"
+        android:clickable="true"
+        android:focusable="false"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:hint="@string/txt_horaSalida"/>
 
     <EditText
         android:id="@+id/et_horaEntrega"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
@@ -90,6 +110,7 @@
         android:textSize="25sp"
         android:textColor="@color/black"
         android:hint="@string/txt_horaEntrega"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/et_nombreMaestro"

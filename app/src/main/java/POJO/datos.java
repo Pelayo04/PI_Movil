@@ -2,7 +2,7 @@ package POJO;
 
 public class datos {
 
-    String nombreAlumno, apPat, apMat, telefono, herramienta, fecha, horaSalida, horaEntrega, nombreMaestro;
+    private String nombreAlumno, apPat, apMat, telefono, herramienta, fecha, horaSalida, horaEntrega, nombreMaestro;
 
     public int d, m ,a;
     public int h, min;
