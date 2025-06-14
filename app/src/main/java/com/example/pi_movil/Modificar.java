@@ -221,7 +221,6 @@ public class Modificar extends AppCompatActivity {
     }
 
     public void guardarCambios() {
-        // CORRECTA validación de lista y posición
         if (info.lista == null || info.lista.size() == 0 || posicion >= info.lista.size()) {
             Toast.makeText(this, "No hay datos para modificar", Toast.LENGTH_SHORT).show();
             return;
@@ -239,35 +238,36 @@ public class Modificar extends AppCompatActivity {
         actual.setHoraEntrega(horaEntrega.getText().toString());
         actual.setNombreMaestro(nombreMaestro.getText().toString());
 
-        // Enviar a la base de datos
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://192.168.100.7/bd/modificar.php";
 
-        StringRequest request = new StringRequest(Request.Method.POST, url,
-                response -> Toast.makeText(this, response, Toast.LENGTH_SHORT).show(),
+        org.json.JSONObject jsonObject = new org.json.JSONObject();
+        try {
+            jsonObject.put("id", actual.getId());
+            jsonObject.put("nombreAlumno", actual.getNombreAlumno());
+            jsonObject.put("apePat", actual.getApPat());
+            jsonObject.put("apeMat", actual.getApMat());
+            jsonObject.put("telefono", actual.getTelefono());
+            jsonObject.put("herramienta", actual.getHerramienta());
+            jsonObject.put("fecha", actual.getFecha());
+            jsonObject.put("horaSalida", actual.getHoraSalida());
+            jsonObject.put("horaEntrega", actual.getHoraEntrega());
+            jsonObject.put("nombreMaestro", actual.getNombreMaestro());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al crear JSON", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(
+                Request.Method.POST, url, jsonObject,
+                response -> Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show(),
                 error -> Toast.makeText(this, "Error de conexión con servidor", Toast.LENGTH_SHORT).show()
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<>();
-                parametros.put("id", String.valueOf(actual.getId())); // ← clave primaria
-                parametros.put("nombreAlumno", actual.getNombreAlumno());
-                parametros.put("apePat", actual.getApPat());
-                parametros.put("apeMat", actual.getApMat());
-                parametros.put("telefono", actual.getTelefono());
-                parametros.put("herramienta", actual.getHerramienta());
-                parametros.put("fecha", actual.getFecha());
-                parametros.put("horaSalida", actual.getHoraSalida());
-                parametros.put("horaEntrega", actual.getHoraEntrega());
-                parametros.put("nombreMaestro", actual.getNombreMaestro());
-                return parametros;
-            }
-        };
+        );
 
         queue.add(request);
-
-
     }
+
 
 
     private void datePicker() {
