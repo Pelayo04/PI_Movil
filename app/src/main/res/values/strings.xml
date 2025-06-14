@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PI_Movil</string>
     <string name="titulo">Almacén</string>
-
+    <string name="txt_Usuario">Introduzca su nombre o usuario</string>
+    <string name="txt_Contraseña">Introduzca su contraseña</string>
+    <string name="button_ingresar">Ingresar</string>
 </resources>
