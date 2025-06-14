@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         et_horaEntrega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                horaEntrega();
+                horaEntrega(); //Aquí hora
             }
         });
 
