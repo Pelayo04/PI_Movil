@@ -21,6 +21,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ver"
+            android:exported="false" />
+        <activity
+            android:name=".cardView"
+            android:exported="false" />
+        <activity
+            android:name=".contactos"
+            android:exported="false" />
+        <activity
+            android:name=".creadores"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

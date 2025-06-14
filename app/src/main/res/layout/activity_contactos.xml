@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_cont"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/txtContPel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_contactoPel"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="35sp"/>
+
+    <TextView
+        android:id="@+id/txtContPel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="O"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="35sp"/>
+
+    <TextView
+        android:id="@+id/txtContUli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_contactoUli"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="35sp"/>
+
+
+</LinearLayout>

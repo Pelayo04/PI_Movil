@@ -13,8 +13,13 @@
     <string name="txt_horaSalida">Hora de Salida</string>
     <string name="txt_horaEntrega">Hora de Entrega</string>
     <string name="txt_nombreMaestro">Nombre del Maestro</string>
-
-
+    <string name="txt_pelayo">Daniel Eduardo Pelayo Gómez 22300954 6H</string>
+    <string name="txt_ulises">Ulises Alberto Macías Ramírez 22300928 6H</string>
+    <string name="txt_creador">Creadores:</string>
+    <string name="txt_cont">Contacto:</string>
+    <string name="txt_contactoPel">a22300954@ceti.mx</string>
+    <string name="txt_contactoUli">a22300928@ceti.mx</string>
+    <string name="txt_button_llamar">Llamar</string>
 
 
     <string name="button_ingresar">Ingresar</string>

@@ -2,7 +2,7 @@ package POJO;
 
 public class datos {
 
-    String nombreAlumno, apPat, apMat, telefono, herramienta, horaSalida, horaEntrega, nombreMaestro;
+    String nombreAlumno, apPat, apMat, telefono, herramienta, fecha, horaSalida, horaEntrega, nombreMaestro;
 
     public int d, m ,a;
     public int h, min;
@@ -53,6 +53,14 @@ public class datos {
 
     public void setHerramienta(String herramienta) {
         this.herramienta = herramienta;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String herramienta) {
+        this.fecha = fecha;
     }
 
     public String getHoraEntrega() {
