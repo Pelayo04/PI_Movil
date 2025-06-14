@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        />
+
+    <EditText
+        android:id="@+id/et_nombreAlumno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPersonName"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_nombreAlumno"/>
+
+    <EditText
+        android:id="@+id/et_apPat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="textPersonName"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_apPat"/>
+
+    <EditText
+        android:id="@+id/et_apMat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="10dp"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_apMat"/>
+
+    <EditText
+        android:id="@+id/et_telefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="phone"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_telefono"/>
+
+    <Spinner
+        android:id="@+id/spinner_herramientas"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:minHeight="48dp"
+        />
+
+    <EditText
+        android:id="@+id/et_fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_fecha"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_horaSalida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:focusable="false"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:hint="@string/txt_horaSalida"/>
+
+        <EditText
+            android:id="@+id/et_horaEntrega"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:focusable="false"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:hint="@string/txt_horaEntrega"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_nombreMaestro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="date"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:hint="@string/txt_nombreMaestro"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_ant"
+            android:layout_width="123dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/rojito"
+            android:text="@string/button_ant" />
+
+        <Button
+            android:id="@+id/button_gc"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/rojito"
+            android:text="@string/button_gc" />
+        <Button
+            android:id="@+id/button_sig"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/rojito"
+            android:text="@string/button_sig" />
+
+
+    </LinearLayout>
+</LinearLayout>

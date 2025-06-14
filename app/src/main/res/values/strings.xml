@@ -26,6 +26,9 @@
     <string name="button_ingresar">Ingresar</string>
     <string name="button_guardar">Guardar</string>
     <string name="button_limpiar">Limpiar</string>
+    <string name="button_sig">Siguiente</string>
+    <string name="button_ant">Anterior</string>
+    <string name="button_gc">Guardar Cambios</string>
 
 
 </resources>

@@ -59,7 +59,7 @@ public class datos {
         return fecha;
     }
 
-    public void setFecha(String herramienta) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
