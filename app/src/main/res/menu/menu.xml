@@ -25,4 +25,14 @@
         android:title="Cerrar sesión"
         android:icon="@drawable/baseline_exit_to_app_24"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/opc6"
+        android:title="Creadores"
+        />
+
+    <item
+        android:id="@+id/opc7"
+        android:title="Contactos"
+        />
 </menu>
