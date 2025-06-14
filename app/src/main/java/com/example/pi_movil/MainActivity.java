@@ -33,6 +33,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -136,38 +138,41 @@ public class MainActivity extends AppCompatActivity {
 
         info.lista.add(persona);
 
-        RequestQueue solicitud = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.100.7/bd/agregar.php";
 
-        StringRequest sql =new StringRequest(Request.Method.POST, "http://192.168.100.7/bd/agregar.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-                Log.d("no paso", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("no paso", error.getMessage());
-            }
-        }){
-            // Aquí se construye el cuerpo de la petición (los datos que se envían)
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> x = new HashMap<>();
-                x.put("nombreAlumno", "" + persona.getNombreAlumno());
-                x.put("apePat", "" + persona.getApPat());
-                x.put("apeMat", "" + persona.getApMat());
-                x.put("telefono", "" + persona.getTelefono());
-                x.put("herramienta", "" + persona.getHerramienta());
-                x.put("fecha", "" + persona.getFecha());
-                x.put("horaSalida", "" + persona.getHoraSalida());
-                x.put("horaEntrega", "" + persona.getHoraEntrega());
-                x.put("nombreMaestro", "" + persona.getNombreMaestro());
-                return x;
-            }
-        };
-        solicitud.add(sql);
+        // Crear el objeto JSON para enviar
+        org.json.JSONObject jsonObject = new org.json.JSONObject();
+        try {
+            jsonObject.put("nombreAlumno", persona.getNombreAlumno());
+            jsonObject.put("apePat", persona.getApPat());
+            jsonObject.put("apeMat", persona.getApMat());
+            jsonObject.put("telefono", persona.getTelefono());
+            jsonObject.put("herramienta", persona.getHerramienta());
+            jsonObject.put("fecha", persona.getFecha());
+            jsonObject.put("horaSalida", persona.getHoraSalida());
+            jsonObject.put("horaEntrega", persona.getHoraEntrega());
+            jsonObject.put("nombreMaestro", persona.getNombreMaestro());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al crear JSON", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(
+                Request.Method.POST, url, jsonObject,
+                response -> {
+                    Toast.makeText(MainActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    Toast.makeText(MainActivity.this, "Error al conectar con servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("VolleyError", error.toString());
+                }
+        );
+
+        queue.add(request);
     }
+
 
     //Método para limpiar los campos
     private void limpiarCampos(){
