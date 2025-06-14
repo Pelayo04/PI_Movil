@@ -9,16 +9,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include
+        layout="@layout/toolbar"
+        />
+
     <EditText
-        android:id="@+id/et_nombreDuenio"
+        android:id="@+id/et_nombreAlumno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:inputType="textPersonName"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="nombresito eh"/>
+        android:hint="@string/txt_nombreAlumno"/>
 
     <EditText
         android:id="@+id/et_apPat"
@@ -29,7 +33,7 @@
         android:inputType="textPersonName"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="ApellidoP"/>
+        android:hint="@string/txt_apPat"/>
 
     <EditText
         android:id="@+id/et_apMat"
@@ -40,7 +44,7 @@
         android:layout_marginLeft="10dp"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="pellidoM"/>
+        android:hint="@string/txt_apMat"/>
 
     <EditText
         android:id="@+id/et_telefono"
@@ -51,10 +55,19 @@
         android:inputType="phone"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="Tel"/>
+        android:hint="@string/txt_telefono"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:minHeight="48dp"
+        />
 
     <EditText
-        android:id="@+id/et_nombreMascota"
+        android:id="@+id/et_horaSalida"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -62,21 +75,10 @@
         android:inputType="text"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="NombreAnimal"/>
+        android:hint="@string/txt_horaSalida"/>
 
     <EditText
-        android:id="@+id/et_Raza"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:inputType="text"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:hint="Raza"/>
-
-    <EditText
-        android:id="@+id/et_horaCita"
+        android:id="@+id/et_horaEntrega"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -86,10 +88,10 @@
         android:focusable="false"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="HoraCita"/>
+        android:hint="@string/txt_horaEntrega"/>
 
     <EditText
-        android:id="@+id/et_fecha"
+        android:id="@+id/et_nombreMaestro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -100,7 +102,7 @@
         android:inputType="date"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:hint="fecha"/>
+        android:hint="@string/txt_nombreMaestro"/>
 
 
 
@@ -116,7 +118,8 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textColor="@color/white"
-            android:text="guardar" />
+            android:backgroundTint="@color/rojito"
+            android:text="@string/button_guardar" />
 
         <Button
             android:id="@+id/button_limpiar"
@@ -124,7 +127,8 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textColor="@color/white"
-            android:text="limpiar" />
+            android:backgroundTint="@color/rojito"
+            android:text="@string/button_limpiar" />
 
     </LinearLayout>
 </LinearLayout>

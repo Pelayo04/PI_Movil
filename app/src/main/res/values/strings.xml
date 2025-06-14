@@ -1,7 +1,25 @@
 <resources>
     <string name="app_name">PI_Movil</string>
     <string name="titulo">Almacén</string>
+
+
     <string name="txt_Usuario">Introduzca su nombre o usuario</string>
     <string name="txt_Contraseña">Introduzca su contraseña</string>
+    <string name="txt_nombreAlumno">Nombre del Alumno</string>
+    <string name="txt_apPat">Apellido Paterno</string>
+    <string name="txt_apMat">Apellido Materno</string>
+    <string name="txt_telefono">Telefono</string>
+    <string name="txt_herramienta">Herramienta</string>
+    <string name="txt_horaSalida">Hora de Salida</string>
+    <string name="txt_horaEntrega">Hora de Entrega</string>
+    <string name="txt_nombreMaestro">Nombre del Maestro</string>
+
+
+
+
     <string name="button_ingresar">Ingresar</string>
+    <string name="button_guardar">Guardar</string>
+    <string name="button_limpiar">Limpiar</string>
+
+
 </resources>
